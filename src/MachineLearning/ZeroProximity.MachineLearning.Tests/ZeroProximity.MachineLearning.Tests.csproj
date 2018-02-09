@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Smote\ZeroProximity.MachineLearning.csproj" />
+    <ProjectReference Include="..\ZeroProximity.MachineLearning\ZeroProximity.MachineLearning.csproj" />
   </ItemGroup>
 
 </Project>
