@@ -6,10 +6,12 @@ namespace ZeroProximity.MachineLearning.Tests
 {
     public class UnitTest1
     {
-        [Fact]
-        public void Test1()
+        private double[][] ds;
+        private double[] labels;
+
+        public UnitTest1()
         {
-            var ds = new[]
+            ds = new[]
             {
                 new[] { 1.0, 1.0, 0.0 },
                 new[] { 1.0, 1.0, 0.0 },
@@ -28,7 +30,7 @@ namespace ZeroProximity.MachineLearning.Tests
                 new[] { 0.0, 2.0, 0.0 },
             };
 
-            var labels = new[]
+            labels = new[]
             {
                 0.0,
                 0.0,
@@ -46,19 +48,38 @@ namespace ZeroProximity.MachineLearning.Tests
                 1.0,
                 1.0
             };
+        }
 
-            var balanced = Smote.Balance(ds, labels, k: 2);
-
+        [Fact]
+        public void AutoBalance()
+        {
+            var balanced = Smote.AutoBalance(ds, labels, k: 2);
             var groups = balanced.Item2.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
-
-            Assert.Equal(6, groups[1.0]);
-
-
-            balanced = Smote.AutoBalance(ds, labels, k: 2);
-
-            groups = balanced.Item2.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
-
             Assert.Equal(12, groups[1.0]);
+        }
+
+        [Fact]
+        public void Test1()
+        {
+            var balanced = Smote.Balance(ds, labels, k: 2);
+            var groups = balanced.Item2.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
+            Assert.Equal(6, groups[1.0]);  
+        }
+
+        [Fact]
+        public void Test2()
+        {
+            var balanced = Smote.Balance(ds, labels, n: 50, k: 2);
+            var groups = balanced.Item2.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
+            Assert.Equal(4, groups[1.0]);
+        }
+
+        [Fact]
+        public void Test3()
+        {
+            var balanced = Smote.Balance(ds, labels, n: 150, k: 2);
+            var groups = balanced.Item2.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
+            Assert.Equal(6, groups[1.0]);
         }
     }
 }

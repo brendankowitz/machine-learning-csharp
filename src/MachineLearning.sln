@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroProximity.MachineLearning", "ZeroProximity.MachineLearning\ZeroProximity.MachineLearning.csproj", "{C4A01211-7B48-4521-92DE-53624712E0F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeroProximity.MachineLearning", "ZeroProximity.MachineLearning\ZeroProximity.MachineLearning.csproj", "{C4A01211-7B48-4521-92DE-53624712E0F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroProximity.MachineLearning.Tests", "ZeroProximity.MachineLearning.Tests\ZeroProximity.MachineLearning.Tests.csproj", "{63CAAA1A-0A3B-4967-AAB4-32A768B7D9EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeroProximity.MachineLearning.Tests", "ZeroProximity.MachineLearning.Tests\ZeroProximity.MachineLearning.Tests.csproj", "{63CAAA1A-0A3B-4967-AAB4-32A768B7D9EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6167CABD-D713-4A12-8290-0A7F8C391A9A}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

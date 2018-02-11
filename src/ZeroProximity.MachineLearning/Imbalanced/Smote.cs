@@ -29,8 +29,6 @@ namespace ZeroProximity.MachineLearning.Imbalanced
             if (labels?.Any() != true) throw new ArgumentNullException(nameof(labels));
 
             if(k < 1) throw new ArgumentOutOfRangeException(nameof(k), "Must be greater than 1");
-            if(n < 100) throw new ArgumentOutOfRangeException(nameof(n), "Must be greater than 100");
-            if(n % 100.0 != 0) throw new ArgumentOutOfRangeException(nameof(n), "Must in multiples of 100");
 
             // Number of synthetic examples will be: (N/100) * T
 
@@ -55,7 +53,7 @@ namespace ZeroProximity.MachineLearning.Imbalanced
 
             for (int i = 0; i < t; i++)
             {
-                var nnarray = NearestNeighbours.Calculate(sample, sample[i], k);
+                var nnarray = sample.NearestNeighbours(sample[i], k);
                 var synthRow = GenerateSynthetic(n, i, nnarray, sample);
                 synthetic.AddRange(synthRow);
             }

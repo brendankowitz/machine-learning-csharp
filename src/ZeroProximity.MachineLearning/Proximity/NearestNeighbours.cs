@@ -3,13 +3,13 @@ using ZeroProximity.MachineLearning.Utility;
 
 namespace ZeroProximity.MachineLearning.Proximity
 {
-    public class NearestNeighbours
+    public static class NearestNeighboursExtensions
     {
         /// <summary>
         /// Finds the specified number of neighbours to the specified data point
         /// </summary>
         /// <returns>Indecies for nearest</returns>
-        public static int[] Calculate(double[][] data, double[] point, int limit)
+        public static int[] NearestNeighbours(this double[][] data, double[] point, int limit)
         {
             var normalized = data.Normalize();
 
