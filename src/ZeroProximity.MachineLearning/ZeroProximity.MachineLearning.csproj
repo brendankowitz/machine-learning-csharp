@@ -5,5 +5,10 @@
     <Authors>Brendan Kowitz</Authors>
     <Company />
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\ZeroProximity.MachineLearning.xml</DocumentationFile>
   </PropertyGroup>
 </Project>

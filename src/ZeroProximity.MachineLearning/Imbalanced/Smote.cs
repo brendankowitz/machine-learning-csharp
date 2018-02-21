@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ZeroProximity.MachineLearning.Proximity;
+using ZeroProximity.MachineLearning.Utility;
 
 namespace ZeroProximity.MachineLearning.Imbalanced
 {
@@ -50,10 +51,11 @@ namespace ZeroProximity.MachineLearning.Imbalanced
                 .Select(x => dataset[x.i]).ToArray();
 
             var synthetic = new List<double[]>();
+            var normalizedSample = sample.Normalize();
 
             for (int i = 0; i < t; i++)
             {
-                var nnarray = sample.NearestNeighbours(sample[i], k);
+                var nnarray = normalizedSample.NearestNeighbours(sample[i], k);
                 var synthRow = GenerateSynthetic(n, i, nnarray, sample);
                 synthetic.AddRange(synthRow);
             }

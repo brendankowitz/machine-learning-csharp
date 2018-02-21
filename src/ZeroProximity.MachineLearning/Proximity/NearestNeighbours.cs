@@ -13,11 +13,23 @@ namespace ZeroProximity.MachineLearning.Proximity
         {
             var normalized = data.Normalize();
 
-            var nearestList = normalized
+            return NearestNeighbours(normalized, point, limit);
+        }
+
+        /// <summary>
+        /// Finds the specified number of neighbours to the specified data point
+        /// </summary>
+        /// <returns>Indecies for nearest</returns>
+        public static int[] NearestNeighbours(this INormalizedData normalizedData, double[] point, int limit)
+        {
+            var normalizedPoint = normalizedData.Normalize(point);
+
+            var nearestList = normalizedData
+                .Data
                 .Select((col, i) => new
                 {
                     i,
-                    Distance = Distance.EuclideanDistance(col, point)
+                    Distance = Distance.EuclideanDistance(col, normalizedPoint)
                 })
                 .OrderBy(x => x.Distance)
                 .Take(limit)
