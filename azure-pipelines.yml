@@ -1,0 +1,43 @@
+# ASP.NET Core
+# Build and test ASP.NET Core web applications targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
+
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build src/ --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+  
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test UnitTests'
+  inputs:
+    command: test
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+  
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet pack nugets'
+  inputs:
+    command: pack
+    configuration: '$(buildConfiguration)'
+    projects: |
+     **/*.csproj
+     !**/*Test*.csproj
+    packDirectory: '$(build.artifactStagingDirectory)/nupkgs'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'nuget_version'
+    nobuild: true
+    zipAfterPublish: true
+  env:
+    nuget_version: 1.0.0-$(build.BuildId)
+
+- task: PublishBuildArtifacts@1
+  displayName: 'publish nuget artifacts'
+  inputs:
+    pathtoPublish: '$(build.artifactStagingDirectory)/nupkgs'
+    artifactName: 'nuget'
+    publishLocation: 'container'
