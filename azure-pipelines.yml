@@ -3,7 +3,7 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
 
-name: $(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+name: $(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
   buildConfiguration: 'Release'
@@ -11,6 +11,13 @@ variables:
 steps:
 - script: dotnet build src/ --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+  
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test UnitTests'
+  inputs:
+    command: test
+    projects: '**/*Tests.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
   
 - task: DotNetCoreCLI@2
   displayName: 'dotnet pack nugets'
@@ -26,7 +33,7 @@ steps:
     nobuild: true
     zipAfterPublish: true
   env:
-    nuget_version: 1.0.0-$(BuildID)
+    nuget_version: 1.0.0-$(build.BuildId)
 
 - task: PublishBuildArtifacts@1
   displayName: 'publish nuget artifacts'
